@@ -1,12 +1,6 @@
-import React from 'react';
+import React from 'react';  //不能删除，由它支持JSX语法
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import TodoList from './TodoList';
 
-ReactDOM.render(<App />, document.getElementById('root'));
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister();
+//<App />是JSX语法。JSX语法中，如果我们要使用自己创建的组件，直接通过标签形式来使用，首字母必须大写
+ReactDOM.render(<TodoList/>, document.getElementById('root'));  //root节点在index.html中有定义
