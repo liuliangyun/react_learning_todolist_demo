@@ -8,13 +8,16 @@ class TodoItem extends Component {
   }
 
   handleClick() {
-    this.props.deleteItem(this.props.index);//调用父组件传进来的deleteItem方法
+    //ES6的解构赋值，一定不能忘了花括号，等价于const deleteItem = this.props.deleteItem && const index = this.props.index
+    const { deleteItem,index } = this.props;
+    deleteItem(index);//调用父组件传进来的deleteItem方法
   }
 
   render() {
+    const { content } = this.props; //ES6的解构赋值，一定不能忘了花括号，等价于const content = this.props.content
     return (
       <div onClick={this.handleClick}>
-        {this.props.content}
+        {content}
       </div>
     )
   }
