@@ -1,4 +1,5 @@
 import React, {Component, Fragment} from 'react';
+import './style.css';
 
 class TodoList extends Component {
 
@@ -10,7 +11,7 @@ class TodoList extends Component {
     }
   }
 
-  handleInputChange (e) {
+  handleInputChange(e) {
     this.setState({  //改变state时必须使用setState()方法
       inputValue: e.target.value
     });
@@ -42,9 +43,17 @@ class TodoList extends Component {
       <Fragment>
         {/*在JSX语法中，当要使用JS表达式或者JS变量，在最外层必须要加上大括号*/}
         <div>
+          {/*React推荐使用htmlFor代替label的for属性，以免和for循环的定义混淆导致控制台报警告*/}
+          {/*htmlFor属性值等于获取焦点元素的id值相同*/}
+          <label htmlFor='insertArea'>输入内容</label>
           {/*使用bind(this)解决this指向问题*/}
-          <input value={this.state.inputValue}
-                 onChange={this.handleInputChange.bind(this)} />
+          {/*React推荐使用className代替css的class，以免和组件类的定义混淆后导致控制台报警告*/}
+          <input
+            id='insertArea'
+            className='input'
+            value={this.state.inputValue}
+            onChange={this.handleInputChange.bind(this)}
+          />
           <button onClick={this.handleBtnClick.bind(this)}>提交</button>
         </div>
         <ul>
@@ -53,7 +62,14 @@ class TodoList extends Component {
           {
             this.state.list.map((item, index) => {
               //bind()函数通过在this后添加其它变量，向调用的方法里传递参数
-              return <li key={index} onClick={this.handleItemDelete.bind(this, index)}>{item}</li>
+              return (
+                <li
+                  key={index}
+                  onClick={this.handleItemDelete.bind(this, index)}
+                  dangerouslySetInnerHTML={{__html: item}}
+                >
+                </li>
+              )
             })
           }
         </ul>
