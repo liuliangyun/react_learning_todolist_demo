@@ -1,5 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import './style.css';
+import TodoItem from './TodoItem';
 
 class TodoList extends Component {
 
@@ -63,12 +64,20 @@ class TodoList extends Component {
             this.state.list.map((item, index) => {
               //bind()函数通过在this后添加其它变量，向调用的方法里传递参数
               return (
-                <li
+                //如果不包裹外层的div，那么将return两块元素，即一个TodoItem和一个注释块
+                <div key={index}>
+                  <TodoItem
+                    content={item}
+                    index={index}
+                    deleteItem={this.handleItemDelete.bind(this)} //这里必须要使用this绑定，不然子组件调用deleteItem方法时会找不到handleItemDelete方法
+                  />
+                  {/*<li
                   key={index}
                   onClick={this.handleItemDelete.bind(this, index)}
                   dangerouslySetInnerHTML={{__html: item}}
                 >
-                </li>
+                </li>*/}
+                </div>
               )
             })
           }
