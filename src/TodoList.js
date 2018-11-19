@@ -5,6 +5,7 @@ import './style.css';
 class TodoList extends Component {
 
   constructor(props) {
+    //当组件的state或者props发生改变的时候，render函数就会重新执行
     super(props);  //调用父类的构造函数一次，不能省去
     this.state = {
       inputValue: '',
@@ -64,6 +65,7 @@ class TodoList extends Component {
   }
 
   render() {
+    // console.log("render");
     return (
       <Fragment>
         {/*在JSX语法中，当要使用JS表达式或者JS变量，在最外层必须要加上大括号*/}
