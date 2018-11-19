@@ -1,5 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import TodoItem from './TodoItem';
+import Test from './Test';
 import './style.css';
 
 class TodoList extends Component {
@@ -65,7 +66,7 @@ class TodoList extends Component {
   }
 
   render() {
-    // console.log("render");
+    console.log("render");
     return (
       <Fragment>
         {/*在JSX语法中，当要使用JS表达式或者JS变量，在最外层必须要加上大括号*/}
@@ -86,6 +87,7 @@ class TodoList extends Component {
         <ul>
           {/*加上括号表示方法立刻执行*/}
           {this.getTodoItem()}
+          <Test content={this.state.inputValue} />
         </ul>
       </Fragment>
     )
