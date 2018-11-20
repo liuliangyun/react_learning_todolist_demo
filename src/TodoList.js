@@ -17,7 +17,7 @@ class TodoList extends Component {
     this.handleItemDelete = this.handleItemDelete.bind(this);
   }
 
-  handleInputChange() {
+  handleInputChange(e) {
     // this.setState({  //改变state时必须使用setState()方法
     //   inputValue: e.target.value
     // });
@@ -30,7 +30,8 @@ class TodoList extends Component {
     // 分析：这样可能对部分未改变的DOM节点造成了重新渲染的损耗，但是由于算法简单，大大节省了虚拟DOM比对消耗的时间。
     // console.log(e.target);//e.target是一个input框DOM节点
     // console.log(this.input);//this.input是通过ref属性得到的input框DOM节点，一般情况下避免使用ref
-    const value = this.input.value;
+    // const value = this.input.value;
+    const value = e.target.value;
     this.setState(() => ({  //ES6语法中使用() => ({}), 此时大括号外层的小括号代表返回一个对象，省略return语句
       inputValue: value
     }))
@@ -51,9 +52,13 @@ class TodoList extends Component {
     this.setState((prevState) => ({  //推荐使用prevState，表示之前的state对象
       list: [...prevState.list, prevState.inputValue],
       inputValue: ''
-    }), () => {
-      console.log(this.ul.querySelectorAll('div').length);//setState的第二个参数是一个回调函数，这个函数会在setState异步执行完毕以后才会被执行，可以确保当函数执行时页面已经更新完了。
-    });
+    }));
+    // this.setState((prevState) => ({  //推荐使用prevState，表示之前的state对象
+    //   list: [...prevState.list, prevState.inputValue],
+    //   inputValue: ''
+    // }), () => {
+    //   console.log(this.ul.querySelectorAll('div').length);//setState的第二个参数是一个回调函数，这个函数会在setState异步执行完毕以后才会被执行，可以确保当函数执行时页面已经更新完了。
+    // });
     //打印ul节点下div节点的出现次数，此时由于setState是异步函数，并不会马上执行，所以实际上打印的是页面未重新渲染前的div节点个数
     // console.log(this.ul.querySelectorAll('div').length);
   }
@@ -75,13 +80,13 @@ class TodoList extends Component {
     })
   }
 
-  //在组件即将被挂载到页面的时刻自动执行
-  componentWillMount(){
-    console.log("componentWillMount");
-  }
+  // //在组件即将被挂载到页面的时刻自动执行
+  // componentWillMount(){
+  //   console.log("componentWillMount");
+  // }
 
   render() {
-    console.log("parent render");
+    // console.log("parent render");
     return (
       <Fragment>
         {/*在JSX语法中，当要使用JS表达式或者JS变量，在最外层必须要加上大括号*/}
@@ -97,11 +102,12 @@ class TodoList extends Component {
             value={this.state.inputValue}
             onChange={this.handleInputChange}
             /*使用ref来操作DOM节点*/
-            ref={(input) => (this.input = input)}
+            // ref={(input) => (this.input = input)}
           />
           <button onClick={this.handleBtnClick}>提交</button>
         </div>
-        <ul ref={(ul) => (this.ul = ul)}>
+        {/*<ul ref={(ul) => (this.ul = ul)}>*/}
+        <ul>
           {/*加上括号表示方法立刻执行*/}
           {this.getTodoItem()}
           {/*<Test content={this.state.inputValue} />*/}
@@ -110,26 +116,26 @@ class TodoList extends Component {
     )
   }
 
-  //在组件被挂载到页面之后自动执行
-  componentDidMount(){
-    console.log("componentDidMount");
-  }
-
-  //在组件被更新之前自动执行
-  shouldComponentUpdate(){
-    console.log("shouldComponentUpdate");
-    return true;//一般返回true，返回false表示不要被更新
-  }
-
-  //在组件被更新之前自动执行,但是在shouldComponentUpdate之后被执行。如果shouldComponentUpdate返回true，它才会被执行。
-  componentWillUpdate(){
-    console.log("componentWillUpdate");
-  }
-
-  //在组件更新完成之后自动执行
-  componentDidUpdate(){
-    console.log("componentDidUpdate");
-  }
+  // //在组件被挂载到页面之后自动执行
+  // componentDidMount(){
+  //   console.log("componentDidMount");
+  // }
+  //
+  // //在组件被更新之前自动执行
+  // shouldComponentUpdate(){
+  //   console.log("shouldComponentUpdate");
+  //   return true;//一般返回true，返回false表示不要被更新
+  // }
+  //
+  // //在组件被更新之前自动执行,但是在shouldComponentUpdate之后被执行。如果shouldComponentUpdate返回true，它才会被执行。
+  // componentWillUpdate(){
+  //   console.log("componentWillUpdate");
+  // }
+  //
+  // //在组件更新完成之后自动执行
+  // componentDidUpdate(){
+  //   console.log("componentDidUpdate");
+  // }
 
   // 由于TodoList是顶层组件，没有接收任何props，因此该函数放这里不会被自动执行
   // componentWillReceiveProps(){
