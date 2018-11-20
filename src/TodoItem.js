@@ -15,7 +15,7 @@ class TodoItem extends Component {
   }
 
   render() {
-    // console.log("child render");
+    console.log("child render");
     // const { content,test } = this.props; //ES6的解构赋值，一定不能忘了花括号，等价于const content = this.props.content
     const { content } = this.props;
     return (
@@ -28,6 +28,16 @@ class TodoItem extends Component {
     // JSX -> createElement() -> 虚拟DOM(JS 对象) -> 真实DOM
     // return <div><span>item</span></div>;
     // return React.createElement('div',{},React.createElement('span',{},'item')); //与使用JSX模板返回结果是一样的，省去了JSX -> createElement()的步骤
+  }
+
+  //目前的情况是当父组件的input框中的内容发生改变时，由于父组件数据改变导致父组件重新渲染，导致已经存在的TodoItem子组件也会跟着重新渲染
+  //此时，可运用生命周期函数来做性能优化
+  shouldComponentUpdate(nextProps, nextState){
+    if (nextProps.content !== this.props.content) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   // //被执行的条件：一个组件要从父组件接收参数，且如果这个组件第一次存在与父组件中，不会执行该函数，如果这个组件之前已经存在于父组件中，才会执行。

@@ -2,6 +2,7 @@ import React, {Component, Fragment} from 'react';
 import TodoItem from './TodoItem';
 // import Test from './Test';
 import './style.css';
+import axios from 'axios';
 
 class TodoList extends Component {
 
@@ -116,11 +117,15 @@ class TodoList extends Component {
     )
   }
 
-  // //在组件被挂载到页面之后自动执行
-  // componentDidMount(){
-  //   console.log("componentDidMount");
-  // }
-  //
+  //ajax请求应该放在只会被执行一次的生命周期函数中，一般推荐放在componentDidMount函数中
+  //在组件被挂载到页面之后自动执行
+  componentDidMount(){
+    // console.log("componentDidMount");
+    axios.get('/api/todolist')
+      .then(() => {alert("success")})
+      .catch(() => {alert("error")})
+  }
+
   // //在组件被更新之前自动执行
   // shouldComponentUpdate(){
   //   console.log("shouldComponentUpdate");
