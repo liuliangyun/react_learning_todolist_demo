@@ -122,7 +122,12 @@ class TodoList extends Component {
   componentDidMount(){
     // console.log("componentDidMount");
     axios.get('/api/todolist')
-      .then(() => {alert("success")})
+      .then((res) => {
+        alert("success")
+        this.setState(() => ({
+          list : [...res.data]  //也可直接list: res.data，但是这样写能更好地避免我们改变res.data的值
+        }));
+      })
       .catch(() => {alert("error")})
   }
 
