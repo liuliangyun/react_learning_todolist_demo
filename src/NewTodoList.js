@@ -9,6 +9,10 @@ class NewTodoList extends Component{
   constructor(props){
     super(props);
     this.state = store.getState();//使用store提供的getState方法获取数据
+    this.handleInputChange = this.handleInputChange.bind(this); //向store发送action
+    this.handleStoreChange = this.handleStoreChange.bind(this);
+    this.handleBtnClick = this.handleBtnClick.bind(this);
+    store.subscribe(this.handleStoreChange);//监听store数据的变化，实时更新组件的数据显示
   }
 
   render(){
@@ -20,8 +24,11 @@ class NewTodoList extends Component{
             value={this.state.inputValue}
             placeholder="todo info"
             style={{width: '300px', marginRight: '10px'}}
+            onChange={this.handleInputChange}
           />
-          <Button type="primary">提交</Button>
+          <Button type="primary" onClick={this.handleBtnClick}>
+            提交
+          </Button>
           <List
             style={{width: '373px', marginTop: '10px'}}
             bordered
@@ -31,6 +38,28 @@ class NewTodoList extends Component{
         </div>
       </div>
     )
+  }
+
+  handleInputChange(e){
+    //首先定义action
+    const action = {
+      type: 'change_input_value',
+      value: e.target.value
+    }
+    //然后调用store的dispatch方法发送action
+    store.dispatch(action);
+  }
+
+  handleStoreChange(){
+    // console.log('store changed');
+    this.setState(store.getState());
+  }
+
+  handleBtnClick(){
+    const action = {
+      type:'add_todo_item',
+    }
+    store.dispatch(action);
   }
 }
 
