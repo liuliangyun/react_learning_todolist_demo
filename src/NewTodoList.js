@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import 'antd/dist/antd.css'//引入antd样式文件
 import { Input, Button, List } from 'antd';
 import store from './store' //实际上引入的是index.js文件，可以省略，因为会自动找store文件夹下的index.js文件
-import { CHANGE_INPUT_VALUE, ADD_TODO_ITEM, DELETE_TODO_ITEM } from "./store/ActionTypes";
+import { getInputChangeAction, getAddItemAction, getDeleteItemAction } from "./store/actionCreator";
 
 
 class NewTodoList extends Component{
@@ -45,10 +45,7 @@ class NewTodoList extends Component{
 
   handleInputChange(e){
     //首先定义action
-    const action = {
-      type: CHANGE_INPUT_VALUE,
-      value: e.target.value
-    }
+    const action = getInputChangeAction(e.target.value);
     //然后调用store的dispatch方法发送action
     store.dispatch(action);
   }
@@ -59,17 +56,12 @@ class NewTodoList extends Component{
   }
 
   handleBtnClick(){
-    const action = {
-      type: ADD_TODO_ITEM,
-    }
+    const action = getAddItemAction();
     store.dispatch(action);
   }
 
   handleItemDelete(index){
-    const action = {
-      type: DELETE_TODO_ITEM,
-      index    //是index: index的简写
-    }
+    const action = getDeleteItemAction(index);
     store.dispatch(action);
   }
 }
