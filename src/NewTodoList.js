@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import 'antd/dist/antd.css'//引入antd样式文件
 import store from './store' //实际上引入的是index.js文件，可以省略，因为会自动找store文件夹下的index.js文件
-import { getInputChangeAction, getAddItemAction, getDeleteItemAction } from "./store/actionCreator";
+import {getInputChangeAction, getAddItemAction, getDeleteItemAction, getInitListAction} from "./store/actionCreator";
 import NewTodoListUI from './NewTodoListUI';
+import axios from 'axios';
 
 
 class NewTodoList extends Component{
@@ -27,6 +28,13 @@ class NewTodoList extends Component{
         handleItemDelete={this.handleItemDelete}
       />
     )
+  }
+
+  componentDidMount(){
+    axios.get("/list.json").then((res) => {
+      const action = getInitListAction(res.data);
+      store.dispatch(action);
+    })
   }
 
   handleInputChange(e){
