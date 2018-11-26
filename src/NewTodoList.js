@@ -13,6 +13,7 @@ class NewTodoList extends Component{
     this.handleInputChange = this.handleInputChange.bind(this); //向store发送action
     this.handleStoreChange = this.handleStoreChange.bind(this);
     this.handleBtnClick = this.handleBtnClick.bind(this);
+    this.handleItemDelete = this.handleItemDelete.bind(this);
     store.subscribe(this.handleStoreChange);//监听store数据的变化，实时更新组件的数据显示
   }
 
@@ -34,8 +35,8 @@ class NewTodoList extends Component{
             style={{width: '373px', marginTop: '10px'}}
             bordered
             dataSource={this.state.list}
-            renderItem={(item,index) => (
-              <List.Item onClick={this.handleItemDelete.bind(this, index)}>{item}</List.Item>
+            renderItem={(item) => (
+              <List.Item onClick={(index) => this.handleItemDelete(index)}>{item}</List.Item>
             )}
           />
         </div>
