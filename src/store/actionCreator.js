@@ -1,5 +1,4 @@
-import { CHANGE_INPUT_VALUE, ADD_TODO_ITEM, DELETE_TODO_ITEM, INIT_TODO_LIST } from "./ActionTypes";
-import axios from "axios";
+import { CHANGE_INPUT_VALUE, ADD_TODO_ITEM, DELETE_TODO_ITEM, INIT_TODO_LIST, GET_INIT_LIST } from "./ActionTypes";
 
 //定义一个函数，返回一个action对象
 export const getInputChangeAction = (value) => ({
@@ -21,13 +20,7 @@ export const getInitListAction = (data) => ({
   data
 });
 
-export const getTodoList = () => {
-  return (dispatch) => {
-    axios.get("/list.json").then((res) => {
-      // console.log(res.data);
-      const action = getInitListAction(res.data);
-      dispatch(action);
-    })
-  }
-};
+export const getInitList = () => ({
+  type: GET_INIT_LIST
+})
 

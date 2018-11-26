@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import 'antd/dist/antd.css' //引入antd样式文件
 import store from './store' //实际上引入的是index.js文件，可以省略，因为会自动找store文件夹下的index.js文件
-import {getAddItemAction, getDeleteItemAction, getInputChangeAction, getTodoList} from "./store/actionCreator";
+import {getAddItemAction, getDeleteItemAction, getInputChangeAction, getInitList} from "./store/actionCreator";
 import NewTodoListUI from './NewTodoListUI';
 
 
@@ -30,8 +30,8 @@ class NewTodoList extends Component{
   }
 
   componentDidMount(){
-    const action = getTodoList();
-    store.dispatch(action);
+    const action = getInitList();
+    store.dispatch(action);//使用redux-saga后，当派发action时，不仅store可以接收，sagas文件也可以接受到action。
   }
 
   handleInputChange(e){
